@@ -65,8 +65,8 @@
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/albin-shaji-08/GPACalculator.git
-   cd GPACalculator
+   git clone https://github.com/albin-shaji-08/GPA-Calculator.git
+   cd GPA-Calculator
    ```
 
 2. **Launch server:**
