@@ -18,7 +18,7 @@
 
 ### 🚀 Console Links & Metadata
 
-- **Live Tracker Console**: [View Live Demo](https://your-live-demo-url.com) ⚡
+- **Live Tracker Console**: [View Live Demo](https://gpacalculator.campus-ride.tech/) ⚡
 - **Aesthetic Standard**: Neo-Brutalism (high contrast, solid drop shadows, raw layout)
 - **GPA Scale Config**: Standard 4.0, 5.0, 10.0 + Custom scale unlocks
 
