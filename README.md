@@ -26,13 +26,13 @@
 
 ## 📸 System Screenshots
 
-|                                                 📡 Dashboard View                                                 |                                              📝 Semester Grade Sheets                                              |
-| :---------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------: |
-| ![Dashboard Screenshot](https://raw.githubusercontent.com/albin-shaji-08/GPACalculator/main/assets/dashboard.png) | ![Semesters Screenshot](https://raw.githubusercontent.com/albin-shaji-08/GPA-Calculator/main/assets/semesters.png) |
+|                                                 📡 Dashboard View                                                  |                                              📝 Semester Grade Sheets                                              |
+| :----------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------: |
+| ![Dashboard Screenshot](https://raw.githubusercontent.com/albin-shaji-08/GPA-Calculator/main/assets/dashboard.png) | ![Semesters Screenshot](https://raw.githubusercontent.com/albin-shaji-08/GPA-Calculator/main/assets/semesters.png) |
 
-|                                                 🔮 Goal Simulator                                                 |                                             ⚙️ Scale Configurator                                              |
-| :---------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------: |
-| ![Simulator Screenshot](https://raw.githubusercontent.com/albin-shaji-08/GPACalculator/main/assets/simulator.png) | ![Grading Screenshot](https://raw.githubusercontent.com/albin-shaji-08/GPA-Calculator/main/assets/grading.png) |
+|                                                 🔮 Goal Simulator                                                  |                                             ⚙️ Scale Configurator                                              |
+| :----------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------: |
+| ![Simulator Screenshot](https://raw.githubusercontent.com/albin-shaji-08/GPA-Calculator/main/assets/simulator.png) | ![Grading Screenshot](https://raw.githubusercontent.com/albin-shaji-08/GPA-Calculator/main/assets/grading.png) |
 
 ---
 
