@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPA/CGPA Calculator | HackWeek 2026</title>
+    <!-- Google Fonts: Space Grotesk and Lexend -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;700;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="logo-container">
+            <h1 class="logo-title">GPA<span class="highlight-text">CALCULATOR</span></h1>
+        </div>
+        <nav class="nav-tabs">
+            <button class="nav-btn active" data-tab="dashboard">Dashboard</button>
+            <button class="nav-btn" data-tab="semesters">Semesters</button>
+            <button class="nav-btn" data-tab="simulator">What-If Sim</button>
+            <button class="nav-btn" data-tab="grading">Grading System</button>
+        </nav>
+        <div class="header-actions">
+            <button id="reset-all-btn" class="action-btn danger-btn">Reset Data</button>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- Dashboard Tab -->
+        <section id="dashboard" class="tab-content active">
+            <div class="welcome-banner card">
+                <h2>Welcome back, Explorer</h2>
+                <p>GPA & CGPA Tracker Dashboard</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card card yellow-bg">
+                    <span class="stat-value" id="cgpa-display">0.00</span>
+                    <span class="stat-label" id="cgpa-label-wrapper">Running CGPA</span>
+                </div>
+                <div class="stat-card card green-bg">
+                    <span class="stat-value" id="total-credits-display">0</span>
+                    <span class="stat-label">Total Credits Earned</span>
+                </div>
+                <div class="stat-card card blue-bg">
+                    <span class="stat-value" id="semesters-count-display">0</span>
+                    <span class="stat-label">Semesters Added</span>
+                </div>
+            </div>
+
+            <div class="dashboard-details grid-2col">
+                <div class="card white-bg">
+                    <h3 class="card-title">GPA Progression</h3>
+                    <div class="chart-container">
+                        <div class="chart-y-axis">
+                            <span>4.0</span>
+                            <span>3.0</span>
+                            <span>2.0</span>
+                            <span>1.0</span>
+                            <span>0.0</span>
+                        </div>
+                        <div class="chart-bars-wrapper">
+                            <div class="chart-grid-lines">
+                                <div class="grid-line"></div>
+                                <div class="grid-line"></div>
+                                <div class="grid-line"></div>
+                                <div class="grid-line"></div>
+                                <div class="grid-line"></div>
+                            </div>
+                            <div id="gpa-chart-bars" class="chart-bars">
+                                <!-- Dynamic bars will be rendered here -->
+                                <div class="chart-placeholder">Add semesters to see your progress chart!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card white-bg">
+                    <h3 class="card-title">Quick Actions</h3>
+                    <div class="quick-actions-list">
+                        <button class="action-card yellow-bg" onclick="switchTab('semesters')">
+                            <i data-lucide="plus-circle"></i>
+                            <span>Manage Semesters & Grades</span>
+                        </button>
+                        <button class="action-card blue-bg" onclick="switchTab('simulator')">
+                            <i data-lucide="sparkles"></i>
+                            <span>Run "What-If" Projections</span>
+                        </button>
+                        <button class="action-card green-bg" onclick="switchTab('grading')">
+                            <i data-lucide="info"></i>
+                            <span>View Grading Standard</span>
+                        </button>
+                        <button class="action-card pink-bg" onclick="printResults()">
+                            <i data-lucide="printer"></i>
+                            <span>Print / Export Results</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Semesters Tab -->
+        <section id="semesters" class="tab-content">
+            <div class="section-header">
+                <h2>Semester Grade Sheets</h2>
+                <button id="add-semester-btn" class="action-btn yellow-btn">
+                    <i data-lucide="plus"></i> Add New Semester
+                </button>
+            </div>
+
+            <div id="semesters-list" class="semesters-container">
+                <!-- Semester cards will be dynamically injected here -->
+            </div>
+        </section>
+
+        <!-- What-If Simulator Tab -->
+        <section id="simulator" class="tab-content">
+            <div class="welcome-banner card pink-bg">
+                <h2>CGPA "What-If" Simulator</h2>
+                <p>Simulate targets and project future performance to stay on track for graduation.</p>
+            </div>
+
+            <div class="grid-2col">
+                <!-- Goal Planner Card -->
+                <div class="card white-bg">
+                    <div class="card-header yellow-bg-strip">
+                        <h3>Target CGPA Planner</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="description">Calculate what average GPA you need in your remaining credits to reach your target CGPA.</p>
+                        
+                        <div class="form-group">
+                            <label for="current-cgpa-sim">Current CGPA</label>
+                            <input type="number" id="current-cgpa-sim" step="0.01" min="0" max="4.00" placeholder="0.00" onfocus="this.select()">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="current-credits-sim">Completed Credits</label>
+                            <input type="number" id="current-credits-sim" min="0" placeholder="0" onfocus="this.select()">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="target-cgpa-sim">Target CGPA</label>
+                            <input type="number" id="target-cgpa-sim" step="0.01" min="0" max="4.00" placeholder="3.50" onfocus="this.select()">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="remaining-credits-sim">Remaining Credits (to Graduation)</label>
+                            <input type="number" id="remaining-credits-sim" min="1" placeholder="30" onfocus="this.select()">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="remaining-semesters-sim">Remaining Semesters</label>
+                            <input type="number" id="remaining-semesters-sim" min="1" placeholder="4" onfocus="this.select()">
+                        </div>
+
+                        <button id="calculate-target-btn" class="action-btn blue-btn full-width">Calculate Required GPA</button>
+
+                        <div id="sim-target-result" class="result-box hide">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Future Projections Card -->
+                <div class="card white-bg">
+                    <div class="card-header green-bg-strip">
+                        <h3>Future Semesters Projection</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="description">Simulate the impact of adding hypothetical semesters with expected GPAs and credits.</p>
+                        
+                        <div class="current-summary-box">
+                            <div><strong>Current CGPA:</strong> <span id="proj-current-cgpa">0.00</span></div>
+                            <div><strong>Current Credits:</strong> <span id="proj-current-credits">0</span></div>
+                        </div>
+
+                        <div class="projection-form">
+                            <h4>Add Simulated Semester</h4>
+                            <div class="form-row-3">
+                                <div class="form-group">
+                                    <label>Semester Name</label>
+                                    <input type="text" id="proj-sem-name" placeholder="e.g., Sem 5" onfocus="this.select()">
+                                </div>
+                                <div class="form-group">
+                                    <label>Credits</label>
+                                    <input type="number" id="proj-sem-credits" min="1" placeholder="15" onfocus="this.select()">
+                                </div>
+                                <div class="form-group">
+                                    <label>Est. GPA</label>
+                                    <input type="number" id="proj-sem-gpa" step="0.01" min="0" max="4.00" placeholder="3.50" onfocus="this.select()">
+                                </div>
+                            </div>
+                            <button id="add-projection-btn" class="action-btn yellow-btn full-width">Add Simulated Semester</button>
+                        </div>
+
+                        <div class="simulated-list-container">
+                            <h4>Simulated Semesters</h4>
+                            <ul id="simulated-sems-list" class="simulated-list">
+                                <li class="empty-list-msg">No simulated semesters added. Add one above!</li>
+                            </ul>
+                        </div>
+
+                        <div id="proj-final-result" class="result-box projection-result-box green-bg">
+                            <strong>Projected CGPA:</strong> <span id="proj-final-cgpa">0.00</span> <br>
+                            <small>Total Credits: <span id="proj-final-credits">0</span></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Grading System Tab -->
+        <section id="grading" class="tab-content">
+            <div class="card white-bg">
+                <div class="card-header orange-bg-strip">
+                    <h2>Grading & GPA Scale</h2>
+                </div>
+                <div class="card-body">
+                    <p class="description" style="margin-bottom: 1.5rem;">Customize your grading scale. Choose a preset scale, edit grade points directly, rename grades, or add custom entries. Calculations update in real-time.</p>
+                    
+                    <div class="scale-presets-bar" style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; border: 2px dashed #000; padding: 1rem;">
+                        <span style="font-weight: 700;">Scale Preset:</span>
+                        <button id="preset-4-btn" class="action-btn yellow-btn" style="padding: 0.4rem 0.8rem; font-size: 0.9rem;">4.0 Scale</button>
+                        <button id="preset-5-btn" class="action-btn green-btn" style="padding: 0.4rem 0.8rem; font-size: 0.9rem;">5.0 Scale</button>
+                        <button id="preset-10-btn" class="action-btn blue-btn" style="padding: 0.4rem 0.8rem; font-size: 0.9rem;">10.0 Scale</button>
+                        <button id="preset-custom-btn" class="action-btn pink-btn" style="padding: 0.4rem 0.8rem; font-size: 0.9rem;">Custom Scale</button>
+                        
+                        <div class="form-group" style="margin-bottom: 0; margin-left: auto; display: flex; align-items: center; gap: 0.5rem;">
+                            <label for="max-gpa-input" style="margin-bottom: 0; white-space: nowrap;">Max Scale Points:</label>
+                            <input type="number" id="max-gpa-input" value="4.0" step="0.1" min="1" max="100" style="width: 80px; padding: 0.4rem; border: 2px solid #000;" onfocus="this.select()">
+                        </div>
+                    </div>
+                    
+                    <div class="grading-table-wrapper">
+                        <table class="grading-table">
+                            <thead id="grading-table-head">
+                                <tr>
+                                    <th>Letter Grade</th>
+                                    <th>Grade Points</th>
+                                    <th>Description</th>
+                                    <th style="width: 60px;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="grading-scale-body">
+                                <!-- Filled by Javascript -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="grading-custom-actions" style="display: flex; justify-content: space-between; margin-top: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                        <button id="add-grade-btn" class="action-btn green-btn">
+                            <i data-lucide="plus-circle"></i> Add Custom Grade
+                        </button>
+                        <button id="restore-grading-btn" class="action-btn danger-btn">
+                            <i data-lucide="rotate-ccw"></i> Restore Defaults
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Custom Neo-brutalism Dialog/Modal -->
+    <div id="confirm-modal" class="modal-overlay hide">
+        <div class="modal-card card">
+            <div class="card-header orange-bg-strip">
+                <h3 id="modal-title">Confirm Action</h3>
+            </div>
+            <div class="card-body">
+                <p id="modal-message">Are you sure you want to proceed?</p>
+                <div class="modal-actions">
+                    <button id="modal-cancel-btn" class="action-btn">Cancel</button>
+                    <button id="modal-confirm-btn" class="action-btn danger-btn">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="app-footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span>Developed by <strong>Albin Shaji</strong></span>
+            </div>
+            <div class="footer-links" style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+                <a href="https://github.com/albin-shaji-08" target="_blank" class="action-btn yellow-btn" style="padding: 0.4rem 0.8rem; font-size: 0.9rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    GitHub
+                </a>
+                <a href="https://www.linkedin.com/in/albin-shaji-71a2773a5/" target="_blank" class="action-btn blue-btn" style="padding: 0.4rem 0.8rem; font-size: 0.9rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    LinkedIn
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="analytics.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
