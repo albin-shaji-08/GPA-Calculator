@@ -6,25 +6,12 @@
 
 <!-- Animated Neo-Brutalist Banner -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200" width="100%" height="auto">
-  <style>
-    @keyframes pulse {
-      0% { fill: #FFDE4D; }
-      50% { fill: #F472B6; }
-      100% { fill: #FFDE4D; }
-    }
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-    .pulsing-strip { animation: pulse 4s infinite ease-in-out; }
-    .blinking-dot { animation: blink 1s infinite steps(1); }
-  </style>
   <rect x="5" y="5" width="790" height="190" fill="#FAF6EE" stroke="#000" stroke-width="4" />
   <rect x="11" y="11" width="790" height="190" fill="none" stroke="#000" stroke-width="4" />
-  <rect class="pulsing-strip" x="5" y="5" width="790" height="20" stroke="#000" stroke-width="4" />
+  <rect x="5" y="5" width="790" height="20" fill="#FFDE4D" stroke="#000" stroke-width="4" />
   <text x="40" y="110" font-family="'Impact', 'Arial Black', sans-serif" font-size="48" fill="#000" letter-spacing="2">GPA CALCULATOR</text>
   <text x="40" y="150" font-family="'Courier New', monospace" font-size="16" font-weight="bold" fill="#000">&gt;_ HACKWEEK_2026 // PORTFOLIO_EDITION</text>
-  <circle class="blinking-dot" cx="740" cy="110" r="10" fill="#F87171" stroke="#000" stroke-width="3" />
+  <circle cx="740" cy="110" r="10" fill="#F87171" stroke="#000" stroke-width="3" />
 </svg>
 
 ---
